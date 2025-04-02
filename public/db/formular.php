@@ -2,8 +2,14 @@
 require_once 'db_connection.php';
 require_once 'delete.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eintrag_loeschen'])) {
-    deleteEntry('informations', $conn); // wir geben zusätzlich $conn mit
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['loesche_info'])) {
+        deleteEntry('informations', $conn);
+    }
+
+    if (isset($_POST['loesche_projekt'])) {
+        deleteEntry('projects', $conn);
+    }
 }
 ?>
 
@@ -12,28 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eintrag_loeschen'])) 
     <head>
         <meta charset = "UTF-8">
         <title>Info hinzufügen</title>
-        <style>
-        table {
-            border-collapse: collapse;
-            min-width: 80%;
-            margin: 20px auto;
-        }
-        th, td {
-            border: 1px solid #aaa;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        h1, form {
-            text-align: center;
-        }
-    </style>
+        <link rel="stylesheet" href="style/formular.css">
     </head>
     <body>
         <h1>Neuen Eintrag hinzufügen:</h1>
-        <form action = "write_in_db.php" method = "POST">
+        <form action = "write_in_db_info.php" method = "POST">
             <label>Vorname:<input type = "text" name = "vorname" required></label><br><br>
             <label>Nachname:<input type = "text" name = "nachname" required></label><br><br>
             <label>Beruf:<input type = "text" name = "beruf" required></label><br><br>
@@ -72,7 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eintrag_loeschen'])) 
                         echo "<td>
                                 <form method='POST' onsubmit=\"return confirm('Diesen Eintrag wirklich löschen?');\">
                                     <input type='hidden' name='id' value='" . $row['id'] . "'>
-                                    <button type='submit' name='eintrag_loeschen'>🗑️ Löschen</button>
+                                    <button type='submit' name='loesche_info'>🗑️ Löschen</button>
+                                </form>
+                                <form method='GET' action='edit_info.php'>
+                                    <input type='hidden' name='id' value='" . $row['id'] . "'>
+                                    <button type='submit'>✏️ Bearbeiten</button>
                                 </form>
                             </td>";
                         echo "</tr>";
@@ -81,11 +74,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eintrag_loeschen'])) 
                     echo "<tr><td colspan='7'>Keine Einträge vorhanden.</td></tr>";
                 }
 
-                $conn->close();
                 ?>
             </tbody>
         </table>
-
+        
+        <h1>Neues Projekt hinzufügen:</h1>
+        <form action = "write_in_db_project.php" method = "POST">
+            <label>Titel:<input type = "text" name = "titel" required></label><br><br>
+            <label>Beschreibung:<input type = "text" name = "beschreibung" required></label><br><br>
+            <label>URL:<input type = "text" name = "url" required></label><br><br>
+            <button type = "submit">Speichern</button>
+        </form>
         <h1>Gespeicherte Projekte:</h1>
         <table>
             <thead>
@@ -112,9 +111,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eintrag_loeschen'])) 
                         echo "<td>" . htmlspecialchars($row['url']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['created']) . "</td>";
                         echo "<td>
-                                <form method='POST' onsubmit=\"return confirm('Diesen Eintrag wirklich löschen?');\">
+                                <form method='POST' onsubmit=\"return confirm('Dieses Projekt wirklich löschen?');\">
                                     <input type='hidden' name='id' value='" . $row['id'] . "'>
-                                    <button type='submit' name='eintrag_loeschen'>🗑️ Löschen</button>
+                                    <button type='submit' name='loesche_projekt'>🗑️ Löschen</button>
+                                </form>
+                                 <form method='GET' action='edit_project.php'>
+                                    <input type='hidden' name='id' value='" . $row['id'] . "'>
+                                    <button type='submit'>✏️ Bearbeiten</button>
                                 </form>
                             </td>";
                         echo "</tr>";

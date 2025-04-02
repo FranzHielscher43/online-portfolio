@@ -1,13 +1,12 @@
 <?php
-$host = "localhost";
+$host = "db"; 
 $user = "root";
-$password = "";
+$password = "root";
 $dbname = "portfolio";
 
 $conn = new mysqli($host, $user, $password, $dbname);
 
-// Check connection
-if($conn->connect_error) {
+if ($conn->connect_error) {
     die("Verbindung fehlgeschlagen: " . $conn->connect_error);
 }
 ?>

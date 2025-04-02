@@ -11,3 +11,6 @@ db.php
 node_modules/
 *.zip
 *.sql
+
+.env
+db_data/
