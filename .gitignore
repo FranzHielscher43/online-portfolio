@@ -1,0 +1,13 @@
+# Keine temporären oder Systemdateien
+.DS_Store
+*.log
+
+# Keine lokalen Konfigurationen
+config.inc.php
+db.php
+
+# Keine hochgeladenen Dateien oder Caches
+/vendor/
+node_modules/
+*.zip
+*.sql
