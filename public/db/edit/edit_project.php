@@ -1,5 +1,5 @@
 <?php
-require_once 'db_connection.php';
+require_once __DIR__ . '/../db_connection.php';
 
 $id = intval($_GET['id']);
 $sql = "SELECT * FROM projects WHERE id = $id";

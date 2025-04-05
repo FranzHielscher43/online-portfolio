@@ -16,7 +16,7 @@ $project_result = $conn->query($project_sql);
 <head>
     <meta charset="UTF-8">
     <title><?= $info ? $info['first_name'] . ' ' . $info['last_name'] : 'Mein Portfolio' ?></title>
-    <link rel="stylesheet" href="style/style.css"> <!-- Falls du CSS hast -->
+    <link rel="stylesheet" href="global/global.css"> 
 </head>
 <body>
     <header>
@@ -39,7 +39,7 @@ $project_result = $conn->query($project_sql);
     </main>
 
     <footer>
-        <p>© <?= date('Y') ?> <?= $info['first_name'] ?? '' ?></p>
+        <p>© <?= date('Y') ?> <?= $info['first_name'] ?? '' ?> <?= $info['last_name'] ?? '' ?></p>
     </footer>
 </body>
 </html>

@@ -1,6 +1,5 @@
 <?php
-
-require_once 'db_connection.php';
+require_once __DIR__ . '/../db_connection.php';
 
 // Get and save data
 $title = $conn -> real_escape_string($_POST['titel']);
@@ -9,13 +8,15 @@ $url = $conn -> real_escape_string($_POST['url']);
 
 $sql = "INSERT INTO projects(title, description, url) VALUES ('$title', '$beschreibung', '$url')";
 
-if($conn->query($sql) === TRUE) {
-    echo "Neuer Eintrag erfolgreich gepeichert. <br>";
-    echo "<a href='formular.php'>Zurück zum Formular</a>";
+if ($conn->query($sql) === TRUE) {
+    header("Location: ./../formular.php?erfolg=1");
+    exit;
 } else {
-    echo "Fehler: " . $conn->error;
+    header("Location: ./../formular.php?error=1");
+    exit;
 }
 
-$conn->close();
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+schreibeInDatenbank($conn);
+}
 ?>

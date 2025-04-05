@@ -1,5 +1,5 @@
 <?php
-require_once 'db_connection.php';
+require_once __DIR__ . '/../db_connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = intval($_POST['id']);
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             WHERE id = $id";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: formular.php?info_updated=1");
+        header("Location: ./../formular.php?info_updated=1");
         exit();
     } else {
         echo "Fehler beim Speichern: " . $conn->error;
