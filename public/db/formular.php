@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="de">
     <head>
         <meta charset = "UTF-8">
-        <title>Info hinzufügen</title>
+        <title>portfolio-content-management</title>
         <link rel="stylesheet" href="./style/formular.css">
     </head>
     <body>
@@ -43,11 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
         <h1>Gespeicherte Informationen</h1>
-        <form method = "POST" action = "./edit/delete_all.php" onsubmit = "return confirm('Ausgewählte Einträge wirklich löschen?');">
         <table>
             <thead>
                 <tr>
-                    <th></th>
                     <th>ID</th>
                     <th>Vorname</th>
                     <th>Nachname</th>
@@ -65,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
-                        echo "<td><input type='checkbox' name='auswahl[]' value='" . $row['id'] . "'></td>";
                         echo "<td>" . htmlspecialchars($row['id'] ) . "</td>";
                         echo "<td>" . htmlspecialchars($row['first_name']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['last_name']) . "</td>";
@@ -92,7 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </tbody>
         </table>
         <br>
-        <button type = "submit" name = "delete_all">🗑️ Ausgewählte löschen</button>
         
         </form>
         <h1>Neues Projekt hinzufügen:</h1>
@@ -106,7 +102,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <table>
             <thead>
                 <tr>
-                    <th></th>
                     <th>ID</th>
                     <th>Titel</th>
                     <th>Beschreibung</th>
@@ -123,7 +118,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
-                        echo "<td><input type='checkbox' name='auswahl[]' value='" . $row['id'] . "'></td>";
                         echo "<td>" . htmlspecialchars($row['id'] ) . "</td>";
                         echo "<td>" . htmlspecialchars($row['title']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['description']) . "</td>";
