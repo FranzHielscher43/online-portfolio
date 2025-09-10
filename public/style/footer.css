@@ -1,0 +1,169 @@
+@font-face {
+  font-family: "Roboto";
+  src: url("./fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+footer {
+  position: fixed;
+  align-content: center;
+  bottom: 0;
+  left: 0;
+  min-width: 100%;
+  padding: 0 2vw;
+  background-color: rgb(44, 57, 96);
+  color: white;
+  min-height: clamp(10vh, 40vh, 40vh);
+}
+
+.footer_content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: clamp(5px, 2vw, 25px);
+  line-height: 1.5;
+  gap: 18vw;
+}
+
+.footer_content .left_container {
+  flex: 3;
+  text-align: justify;
+}
+
+.footer_content .right_container {
+  flex: 3;
+  text-align: justify;
+  display: grid;
+  grid-template-columns: auto auto;
+  font-family: "Roboto", sans-serif;
+  font-size: clamp(5px, 2vw, 25px);
+}
+
+.right_container div {
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+}
+
+.right_container .right_column {
+  color: rgb(45, 73, 195);
+  filter: brightness(2);
+}
+
+.footer_heading {
+  font-size: clamp(10px, 4vw, 50px);
+}
+
+.footer_information {
+  font-size: clamp(5px, 2vw, 30px);
+}
+
+button {
+  font-size: clamp(12px, 2.5vw, 30px);
+  padding: 0.8em 1.2em;
+  max-width: 90%;
+  width: fit-content;
+  background-color: rgb(104, 192, 104);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 2%;
+  border: 1px solid #888;
+  width: 40vw;
+  color: #000;
+  font-size: clamp(12px, 2.5vw, 30px);
+}
+
+.modal-content input {
+  min-width: 90%;
+  font-size: clamp(10px, 2vw, 20px);
+}
+
+.modal-content textarea {
+  min-width: 100%;
+  font-size: clamp(10px, 2vw, 20px);
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Navigation */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgb(44, 57, 96);
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: white;
+  font-size: clamp(12px, 2.5vw, 30px);
+}
+
+.nav_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 90vw;
+  margin: 0 auto;
+  padding: 2rem 1.2rem;
+}
+
+.nav_links {
+  list-style: none;
+  display: flex;
+  gap: 3rem;
+}
+
+.nav_links a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3 ease;
+}
+
+.nav_links a:hover {
+  color: rgb(104, 192, 104);
+}
+
+.nav_logo {
+  font-size: clamp(20px, 4vw, 40px);
+}
