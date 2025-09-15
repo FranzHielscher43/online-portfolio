@@ -6,10 +6,11 @@ function schreibeInDatenbank($conn) {
     $nachname = $conn->real_escape_string($_POST['nachname']);
     $beruf = $conn->real_escape_string($_POST['beruf']);
     $about_me = $conn->real_escape_string($_POST['about_me']);
+    $bildpfad = $conn->real_escape_stirng($_POST['bildpfad']);
     $email = $conn->real_escape_string($_POST['email']);
 
-    $sql = "INSERT INTO informations (first_name, last_name, profession, about_text, email)
-            VALUES ('$vorname', '$nachname', '$beruf', '$about_me', '$email')";
+    $sql = "INSERT INTO informations (first_name, last_name, profession, about_text, image_path, email)
+            VALUES ('$vorname', '$nachname', '$beruf', '$about_me', '$bildpfad', '$email')";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: ./../formular.php?erfolg=1");

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../db_connection.php';
+require_once '../db_connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = intval($_POST['id']);
@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nachname = $conn->real_escape_string($_POST['nachname']);
     $beruf = $conn->real_escape_string($_POST['beruf']);
     $about_me = $conn->real_escape_string($_POST['about_me']);
+    $bildpfad = $conn->real_escape_string($_POST['bildpfad']);
     $email = $conn->real_escape_string($_POST['email']);
 
     $sql = "UPDATE informations SET 
@@ -14,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 last_name = '$nachname',
                 profession = '$beruf',
                 about_text = '$about_me',
+                image_path = '$bildpfad',
                 email = '$email'
             WHERE id = $id";
 

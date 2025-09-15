@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label>Nachname:<input type = "text" name = "nachname" required></label><br><br>
             <label>Beruf:<input type = "text" name = "beruf" required></label><br><br>
             <label>About Me:<input type = "text" name = "about_me" required><label><br><br>
+            <label>Bildpfad:<input type = "text" name = "bildpfad" required><label><br><br>
             <label>Email:<input type = "text" name = "email" required></label><br><br>
             <button type = "submit">Speichern</button>
         </form>
@@ -52,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <th>Nachname</th>
                     <th>Beruf</th>
                     <th>About Me</th>
+                    <th>Bildpfad</th>
                     <th>Email</th>
                     <th>Erstellt am</th>
                     <th>Aktion</th>
@@ -70,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         echo "<td>" . htmlspecialchars($row['last_name']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['profession']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['about_text']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['image_path']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['email']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['created']) . "</td>";
                         echo "<td>
