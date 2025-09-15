@@ -70,7 +70,7 @@ $project_result = $conn->query($project_sql);
 <head>
     <meta charset="UTF-8">
     <title><?= $info ? $info['first_name'] . ' ' . $info['last_name'] : 'Mein Portfolio' ?></title>
-    <link rel="stylesheet" href="style/footer.css"> 
+    <link rel="stylesheet" href="style/index.css">
 </head>
 <body>
     <nav class = "navbar">
@@ -85,16 +85,19 @@ $project_result = $conn->query($project_sql);
             </div>
         </div>
     </nav>
-    <main>
+    <main class = "main_part">
         <?php while ($project = $project_result->fetch_assoc()): ?>
-            <li>
-                <h1><?= $info['first_name'] ?? '' ?> <?= $info['last_name'] ?? '' ?></h1>
-                <p><strong><?= $info['profession'] ?? '' ?></strong></p>
-                <p><?= $info['email'] ?? '' ?></p>
-                <h3><?= htmlspecialchars($project['title']) ?></h3>
-                <p><?= htmlspecialchars($project['description']) ?></p>
-                <a href="<?= htmlspecialchars($project['url']) ?>" target="_blank">Projekt ansehen</a>
-            </li>
+
+        <div class = "about_me">
+            <img src = "style/images/about_me_4.jpg" alt = "about me">
+            <p><strong><?= $info['about_text'] ?? '' ?></strong></p>
+        </div>
+
+        <div class = "projects">
+            <h3><?= htmlspecialchars($project['title']) ?></h3>
+            <p><?= htmlspecialchars($project['description']) ?></p>
+            <a href="<?= htmlspecialchars($project['url']) ?>" target="_blank">Projekt ansehen</a>
+        </div>
         <?php endwhile; ?>
     </main>
 

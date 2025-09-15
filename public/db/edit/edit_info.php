@@ -26,6 +26,7 @@ if ($result->num_rows === 1) {
         <label>Vorname:<input type="text" name="vorname" value="<?= htmlspecialchars($row['first_name']) ?>" required></label><br><br>
         <label>Nachname:<input type="text" name="nachname" value="<?= htmlspecialchars($row['last_name']) ?>" required></label><br><br>
         <label>Beruf:<input type="text" name="beruf" value="<?= htmlspecialchars($row['profession']) ?>" required></label><br><br>
+        <label>About Me:<input type="text" name="about_me" value = "<?= htmlspecialchars($row['about_text']) ?>" required></label><br><br>
         <label>Email:<input type="email" name="email" value="<?= htmlspecialchars($row['email']) ?>" required></label><br><br>
 
         <button type="submit" name="eintrag_speichern">Speichern</button>
