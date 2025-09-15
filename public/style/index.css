@@ -11,6 +11,10 @@
   font-family: "Roboto", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   height: 100%; /* volle Höhe */
@@ -70,8 +74,45 @@ main {
   font-size: clamp(20px, 4vw, 40px);
 }
 
+.progress_container {
+  width: 100vw;
+  height: 0.5vh;
+  background: transparent;
+}
+
+.progress_bar {
+  height: 0.5vh;
+  background-color: rgb(104, 192, 104);
+  filter: brightness(1.1);
+  width: 0%;
+}
+
 .about_me {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+  padding: 2vw 4vw;
+  font-size: clamp(12px, 2.5vw, 25px);
+}
+
+.about_me_text {
+  width: 45%;
+}
+
+.about_me img {
+  width: 40%;
+  max-width: 1000px;
+  height: auto;
+  border-radius: 5%;
+  flex-shrink: 0;
+}
+
+.about_me p {
+  flex: 1;
+  min-width: 200px;
+  text-align: justify;
+  line-height: 1.5;
 }
 
 footer {

@@ -84,13 +84,19 @@ $project_result = $conn->query($project_sql);
                 <li><a href="#contact">Contact</a></li>
             </div>
         </div>
+        <div class="progress_container">
+            <div class="progress_bar" id="myBar"></div>
+        </div>
     </nav>
     <main class = "main_part">
         <?php while ($project = $project_result->fetch_assoc()): ?>
 
-        <div class = "about_me">
-            <img src = "style/images/about_me_4.jpg" alt = "about me">
-            <p><strong><?= $info['about_text'] ?? '' ?></strong></p>
+        <div class = "about_me" id = "about">
+            <img src="style/images/<?= htmlspecialchars($info['image_path'] ?? 'default.jpg') ?>" alt="about me">
+            <div class = "about_me_text">
+                <h1>Hello, I'm Franz...</h1>
+                <p><strong><?= $info['about_text'] ?? '' ?></strong></p>
+            </div>
         </div>
 
         <div class = "projects">
@@ -157,4 +163,5 @@ $project_result = $conn->query($project_sql);
     </footer>
 </body>
 <script src = "script/footer.js"></script>
+<script src = "script/progress_bar.js"></script>
 </html>
