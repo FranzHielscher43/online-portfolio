@@ -173,6 +173,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label>Titel:<input type = "text" name = "titel" required></label><br><br>
             <label>Beschreibung:<input type = "text" name = "beschreibung" required></label><br><br>
             <label>URL:<input type = "text" name = "url" required></label><br><br>
+            <label>Image_path_1:<input type = "text" name = "image_path_1" required></label><br><br>
+            <label>Image_path_2:<input type = "text" name = "image_path_1" required></label><br><br>
+            <label>Image_path_3:<input type = "text" name = "image_path_1" required></label><br><br>
             <button type = "submit">Speichern</button>
         </form>
         <h1>Gespeicherte Projekte:</h1>
@@ -183,6 +186,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <th>Titel</th>
                     <th>Beschreibung</th>
                     <th>URL</th>
+                    <th>Image_path_1</th>
+                    <th>Image_path_2</th>
+                    <th>Image_path_3</th>
                     <th>Erstellt am</th>
                     <th>Aktion</th>
                 </tr>
@@ -199,13 +205,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         echo "<td>" . htmlspecialchars($row['title']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['description']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['url']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['image_path_1']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['image_path_2']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['image_path_3']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['created']) . "</td>";
                         echo "<td>
                                 <form method='POST' onsubmit=\"return confirm('Dieses Projekt wirklich löschen?');\">
                                     <input type='hidden' name='id' value='" . $row['id'] . "'>
                                     <button type='submit' name='loesche_projekt'>🗑️ Löschen</button>
                                 </form>
-                                 <form method='GET' action='/db/edit_project.php'>
+                                 <form method='GET' action='/db/edit/edit_project.php'>
                                     <input type='hidden' name='id' value='" . $row['id'] . "'>
                                     <button type='submit'>✏️ Bearbeiten</button>
                                 </form>
@@ -213,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='7'>Keine Einträge vorhanden.</td></tr>";
+                    echo "<tr><td colspan='10'>Keine Einträge vorhanden.</td></tr>";
                 }
                 ?>
             </tbody>

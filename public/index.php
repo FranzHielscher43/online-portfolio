@@ -137,28 +137,21 @@ $project_result = $conn->query($project_sql);
                 <div class="project_text">
                     <h3><?= htmlspecialchars($project['title']) ?></h3>
                     <p><?= htmlspecialchars($project['description']) ?></p>
-                    <a href="<?= htmlspecialchars($project['url']) ?>" target="_blank">Projekt ansehen</a>
+                    <a href="<?= htmlspecialchars($project['url']) ?>" target="_blank">View project</a>
                 </div>
-
-                <div class="swiper project-swiper">
+                <div class="swiper project_swiper">
                     <div class="swiper-wrapper">
-                        <?php
-                        $images = explode(',', $project['images']); // falls mehrere Bilder als CSV in DB
-                        foreach($images as $img):
-                            $img = trim($img);
-                            if($img !== ''):
-                        ?>
-                        <div class="swiper-slide">
-                            <img src="style/images/about_me/<?= htmlspecialchars($img) ?>" alt="<?= htmlspecialchars($project['title']) ?>">
-                        </div>
-                        <?php
-                            endif;
-                        endforeach;
-                        ?>
+                        <?php for($i = 1; $i <= 3; $i++):
+                            $img = $project["image_path_$i"] ?? '';
+                            if($img): ?>
+                                <div class="swiper-slide">
+                                    <img src="style/images/project/<?= htmlspecialchars($img) ?>" alt="Projektbild <?= $i ?>">
+                                </div>
+                        <?php endif; endfor; ?>
                     </div>
                     <div class="swiper-pagination"></div>
-                    <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
             <?php endwhile; ?>

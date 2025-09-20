@@ -1,6 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Initialisiere jede Projekt-Swiper-Instanz einzeln
-  document.querySelectorAll(".project-swiper").forEach((swiperEl) => {
+document.addEventListener("DOMContentLoaded", function () {
+  const swipers = document.querySelectorAll(".project_swiper");
+  swipers.forEach((swiperEl) => {
     new Swiper(swiperEl, {
       loop: true,
       pagination: {
@@ -11,7 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
         nextEl: swiperEl.querySelector(".swiper-button-next"),
         prevEl: swiperEl.querySelector(".swiper-button-prev"),
       },
-      slidesPerView: 1,
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+      },
       spaceBetween: 20,
     });
   });
