@@ -13,6 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         deleteEntry('informations', $conn);
     }
 
+    if(isset($_POST['loesche_cv'])) {
+        deleteEntry('CV', $conn);
+    }
+
     if (isset($_POST['loesche_projekt'])) {
         deleteEntry('projects', $conn);
     }
@@ -95,8 +99,75 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </tbody>
         </table>
         <br>
-        
+
+        <!-- CV -->
+        <h1>Neuen Lebenslaufeintrag hinzufügen:</h1>
+        <form action = "/db/edit/write_in_db_cv.php" method = "POST">
+            <label>Name:<input type = "text" name = "name" required></label><br><br>
+            <label>Position:<input type = "text" name = "position" required></label><br><br>
+            <label>Unternehmen:<input type = "text" name = "company" required></label><br><br>
+            <label>Adresse:<input type = "text" name = "address" required></label><br><br>
+            <label>Startdatum:<input type = "text" name = "start_date" required><label><br><br>
+            <label>Enddatum:<input type = "text" name = "end_date" required><label><br><br>
+            <label>Beschreibung:<input type = "text" name = "description" required></label><br><br>
+            <button type = "submit">Speichern</button>
         </form>
+
+        <h1>Gespeicherte Lebenslaufeinträge</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Unternehmen</th>
+                    <th>Adresse</th>
+                    <th>Startdatum</th>
+                    <th>Enddatum</th>
+                    <th>Beschreibung</th>
+                    <th>Erstellt am</th>
+                    <th>Aktion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $sql = "SELECT * FROM CV ORDER BY created ASC";
+                $result = $conn->query($sql);
+
+                if ($result && $result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($row['id'] ) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['position']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['company']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['address']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['start_date']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['end_date']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['description']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['created']) . "</td>";
+                        echo "<td>
+                                <form method='POST' onsubmit=\"return confirm('Diesen Eintrag wirklich löschen?');\">
+                                    <input type='hidden' name='id' value='" . $row['id'] . "'>
+                                    <button type='submit' name='loesche_cv'>🗑️ Löschen</button>
+                                </form>
+                                <form method='GET' action='/db/edit/edit_cv.php'>
+                                    <input type='hidden' name='id' value='" . $row['id'] . "'>
+                                    <button type='submit'>✏️ Bearbeiten</button>
+                                </form>
+                            </td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='10'>Keine Einträge vorhanden.</td></tr>";
+                }
+
+                ?>
+            </tbody>
+        </table>
+        <br>
+        </form>
+
         <h1>Neues Projekt hinzufügen:</h1>
         <form action = "/db/edit/write_in_db_project.php" method = "POST">
             <label>Titel:<input type = "text" name = "titel" required></label><br><br>
@@ -147,6 +218,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ?>
             </tbody>
         </table>
+        <br>
+        
         <h1>Vorhandene Benutzer:</h1>
         <table>
             <thead>

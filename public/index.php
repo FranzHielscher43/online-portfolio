@@ -59,8 +59,12 @@ $info_sql = "SELECT * FROM informations ORDER BY created ASC";
 $info_result = $conn->query($info_sql);
 $info = $info_result->fetch_assoc();
 
+// CV laden
+$cv_sql = "SELECT * FROM CV ORDER BY created ASC";
+$cv_result = $conn->query($cv_sql);
+
 // Projekte laden
-$project_sql = "SELECT * FROM projects ORDER BY created DESC";
+$project_sql = "SELECT * FROM projects ORDER BY created ASC";
 $project_result = $conn->query($project_sql);
 
 ?>
@@ -70,7 +74,10 @@ $project_result = $conn->query($project_sql);
 <head>
     <meta charset="UTF-8">
     <title><?= $info ? $info['first_name'] . ' ' . $info['last_name'] : 'Mein Portfolio' ?></title>
-    <link rel="stylesheet" href="style/index.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link href="style/index.css" rel="stylesheet">
+
 </head>
 <body>
     <nav class = "navbar">
@@ -80,6 +87,7 @@ $project_result = $conn->query($project_sql);
             </div>
             <div class = "nav_links">
                 <li><a href="#about">About Me</a></li>
+                <li><a href="#cv">CV</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </div>
@@ -89,22 +97,72 @@ $project_result = $conn->query($project_sql);
         </div>
     </nav>
     <main class = "main_part">
-        <?php while ($project = $project_result->fetch_assoc()): ?>
-
         <div class = "about_me" id = "about">
-            <img src="style/images/<?= htmlspecialchars($info['image_path'] ?? 'default.jpg') ?>" alt="about me">
+            <img src="style/images/about_me/<?= htmlspecialchars($info['image_path'] ?? 'default.jpg') ?>" alt="about me">
             <div class = "about_me_text">
-                <h1>Hello, I'm Franz...</h1>
-                <p><strong><?= $info['about_text'] ?? '' ?></strong></p>
+                <h1>Hello, I'm <?= $info['first_name'] ?? '' ?>...</h1>
+                <p><?= $info['about_text'] ?? '' ?></p>
             </div>
         </div>
+        <br><br>
 
-        <div class = "projects">
-            <h3><?= htmlspecialchars($project['title']) ?></h3>
-            <p><?= htmlspecialchars($project['description']) ?></p>
-            <a href="<?= htmlspecialchars($project['url']) ?>" target="_blank">Projekt ansehen</a>
+        <div class = "cv" id = "cv">
+            <h1>Milestones</h1>
+            <div class = "cv_container">
+                <?php 
+                $i = 0;
+                while ($cv = $cv_result->fetch_assoc()):
+                ?>
+                <div class="cv_entry <?= $i % 2 == 0 ? 'left' : 'right' ?>">
+                    <h2><?= htmlspecialchars($cv['name']) ?? ''?></h2>
+                    <p>Position: <?= htmlspecialchars($cv['position']) ?? ''?></p>
+                    <p>Institution: <?= htmlspecialchars($cv['company']) ?? ''?></p>
+                    <p>Address: <?= htmlspecialchars($cv['address']) ?? ''?></p>
+                    <p>Since: <?= htmlspecialchars($cv['start_date']) ?? ''?></p>
+                    <p>Until: <?= htmlspecialchars($cv['end_date']) ?? ''?></p>
+                    <p>Description: <?= htmlspecialchars($cv['description']) ?? ''?></p>
+                </div>
+                <?php
+                $i++;
+                    endwhile;
+                ?>
+            </div>
+            <br><br>
         </div>
-        <?php endwhile; ?>
+
+        <div class="projects" id="projects">
+            <h1>Projects</h1>
+            <?php while($project = $project_result->fetch_assoc()): ?>
+            <div class="project_entry">
+                <div class="project_text">
+                    <h3><?= htmlspecialchars($project['title']) ?></h3>
+                    <p><?= htmlspecialchars($project['description']) ?></p>
+                    <a href="<?= htmlspecialchars($project['url']) ?>" target="_blank">Projekt ansehen</a>
+                </div>
+
+                <div class="swiper project-swiper">
+                    <div class="swiper-wrapper">
+                        <?php
+                        $images = explode(',', $project['images']); // falls mehrere Bilder als CSV in DB
+                        foreach($images as $img):
+                            $img = trim($img);
+                            if($img !== ''):
+                        ?>
+                        <div class="swiper-slide">
+                            <img src="style/images/about_me/<?= htmlspecialchars($img) ?>" alt="<?= htmlspecialchars($project['title']) ?>">
+                        </div>
+                        <?php
+                            endif;
+                        endforeach;
+                        ?>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <?php endwhile; ?>
+        </div>
     </main>
 
     <footer>
@@ -162,6 +220,8 @@ $project_result = $conn->query($project_sql);
         </div>
     </footer>
 </body>
+<script src = "https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src = "script/swiper_init.js"></script>
 <script src = "script/footer.js"></script>
 <script src = "script/progress_bar.js"></script>
 </html>

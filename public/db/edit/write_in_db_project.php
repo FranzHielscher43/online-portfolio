@@ -5,8 +5,11 @@ require_once __DIR__ . '/../db_connection.php';
 $title = $conn -> real_escape_string($_POST['titel']);
 $beschreibung = $conn -> real_escape_string($_POST['beschreibung']);
 $url = $conn -> real_escape_string($_POST['url']);
+$image_path_1 = $conn -> real_escape_string($_POST['image_path_1']);
+$image_path_2 = $conn -> real_escape_string($_POST['image_path_2']);
+$image_path_3 = $conn -> real_escape_string($_POST['image_path_3']);
 
-$sql = "INSERT INTO projects(title, description, url) VALUES ('$title', '$beschreibung', '$url')";
+$sql = "INSERT INTO projects(title, description, url, image_path_1, image_path_2, image_path_3) VALUES ('$title', '$beschreibung', '$url', '$image_path_1', '$image_path_2', '$image_path_3')";
 
 if ($conn->query($sql) === TRUE) {
     header("Location: ./../formular.php?erfolg=1");

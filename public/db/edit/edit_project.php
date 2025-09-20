@@ -26,7 +26,10 @@ if ($result->num_rows === 1) {
         <label>Titel:<input type="text" name="titel" value="<?= htmlspecialchars($row['title']) ?>" required></label><br><br>
         <label>Beschreibung:<input type="text" name="beschreibung" value="<?= htmlspecialchars($row['description']) ?>" required></label><br><br>
         <label>URL:<input type="text" name="url" value="<?= htmlspecialchars($row['url']) ?>" required></label><br><br>
-
+        <label>Image_Path_1:<input type="text" name = "image_path_1" value = "<?= htmlspecialchars($row['image_path_1']) ?>" required></label><br><br>
+        <label>Image_Path_2:<input type="text" name = "image_path_2" value = "<?= htmlspecialchars($row['image_path_2']) ?>" required></label><br><br>
+        <label>Image_Path_3:<input type="text" name = "image_path_3" value = "<?= htmlspecialchars($row['image_path_3']) ?>" required></label><br><br>
+        
         <button type="submit" name="eintrag_speichern">Speichern</button>
     </form>
 
