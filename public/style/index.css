@@ -17,14 +17,26 @@ html {
 
 html,
 body {
-  height: 100%; /* volle Höhe */
+  height: 100%;
   margin: 0;
 }
 
 body {
   display: flex;
-  flex-direction: column; /* Inhalt übereinander stapeln */
-  min-height: 100vh; /* volle Höhe vom Bildschirm */
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 0.9rem;
+  }
+  h1 {
+    font-size: 1.6rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
 }
 
 main {
@@ -168,6 +180,11 @@ body .nav_logo {
   width: 40%;
 }
 
+.project_text a {
+  text-decoration: none;
+  color: rgb(104, 192, 104);
+}
+
 .project_swiper {
   flex: 1;
   float: right;
@@ -175,7 +192,7 @@ body .nav_logo {
 
 .swiper {
   max-width: 50vw;
-  height: 50vh;
+  height: 55vh;
   margin: 2rem auto;
 }
 
@@ -192,6 +209,21 @@ body .nav_logo {
   object-fit: contain;
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(44, 57, 96);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: rgb(104, 192, 104);
+}
+
+.swiper-pagination-bullet {
+  width: 1vw;
+  border-radius: 0px;
+}
+.swiper-pagination-bullet-active {
+  background-color: rgb(104, 192, 104);
+  width: 1vw;
+  height: 1vh;
 }
 
 footer {

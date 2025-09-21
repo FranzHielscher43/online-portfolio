@@ -137,7 +137,7 @@ $project_result = $conn->query($project_sql);
                 <div class="project_text">
                     <h3><?= htmlspecialchars($project['title']) ?></h3>
                     <p><?= htmlspecialchars($project['description']) ?></p>
-                    <a href="<?= htmlspecialchars($project['url']) ?>" target="_blank">View project</a>
+                    <a href="<?= htmlspecialchars($project['url']) ?>" target="_blank"><b>View project</b></a>
                 </div>
                 <div class="swiper project_swiper">
                     <div class="swiper-wrapper">
@@ -154,6 +154,7 @@ $project_result = $conn->query($project_sql);
                     <div class="swiper-button-prev"></div>
                 </div>
             </div>
+            <br>
             <?php endwhile; ?>
         </div>
     </main>
