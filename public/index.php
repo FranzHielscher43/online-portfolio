@@ -1,5 +1,5 @@
 <?php
-require_once 'db/db_connection.php';
+require_once 'db/db_connection.php'; 
 require __DIR__ . '/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
