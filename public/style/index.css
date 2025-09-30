@@ -29,14 +29,16 @@ body {
 
 main {
   flex: 1;
+  padding-top: 8vh;
 }
 
 /* Navigation */
 body .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   background-color: rgb(44, 57, 96);
+  box-shadow: 5px 10px;
   width: 100%;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -53,13 +55,13 @@ body .nav_container {
   padding: 2rem 1.2rem;
 }
 
-body .nav_links {
+body #nav_links {
   list-style: none;
   display: flex;
   gap: 3rem;
 }
 
-body .nav_links a {
+body #nav_links a {
   text-decoration: none;
   color: white;
   font-weight: 500;
@@ -72,6 +74,16 @@ body .nav_links a:hover {
 
 body .nav_logo {
   font-size: clamp(20px, 4vw, 40px);
+}
+
+.burger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.nav_container .icon {
+  display: none;
 }
 
 .progress_container {
@@ -122,28 +134,18 @@ body .nav_logo {
 }
 
 .cv_container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
   padding: 1vw;
   border: 0.5vw dotted rgb(104, 192, 104);
 }
 
 .cv_entry {
-  position: relative;
+  flex: 1 1 45%; /* zwei Einträge pro Reihe */
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 80%;
-  margin: 0 auto;
-}
-
-.cv_entry.left {
-  grid-column: 1;
-}
-
-.cv_entry.right {
-  grid-column: 2;
 }
 
 .projects {
@@ -333,17 +335,54 @@ button {
   .about_me,
   .cv,
   .projects {
-    font-size: clamp(8px, 2vw, 20px);
+    font-size: clamp(12px, 2.5vw, 30px);
   }
+
   /* Navigation */
-  .nav_container {
-    flex-direction: column;
-    gap: 1rem;
+  .nav_container .icon {
+    display: block;
+    cursor: pointer;
+    font-size: 2rem;
+    color: white;
   }
-  .nav_links {
+
+  body #nav_links {
+    display: none;
+    text-decoration: none;
     flex-direction: column;
-    gap: 1rem;
-    align-items: center;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    background-color: white;
+    padding: 1rem 0;
+    z-index: 999;
+    font-weight: 500;
+    transition: color 0.3 ease;
+  }
+
+  /* Jeder Link in eigener Zeile */
+  #nav_links a {
+    display: flex;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    justify-content: center;
+    color: rgb(44, 57, 96);
+    padding: 0.8rem 0;
+    width: 90%;
+  }
+
+  body #nav_links a {
+    color: rgb(44, 57, 96); /* jetzt wirkt es */
+  }
+
+  #nav_links a:hover {
+    background-color: rgb(104, 192, 104);
+    border-radius: 10px;
+  }
+
+  .nav_container .icon:hover {
+    color: rgb(104, 192, 104);
   }
 
   /* About Me */
@@ -361,18 +400,25 @@ button {
     width: 60%;
   }
 
-  /* CV */
   .cv_container {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
+
   .cv_entry {
-    width: 100%;
+    flex: 1 1 100%;
   }
 
   /* Projekte */
+  .projects {
+    position: relative;
+    left: 10%;
+  }
+
   .project_entry {
     flex-direction: column;
+    text-align: justify;
     gap: 2rem;
+    width: 80%;
   }
   .project_text,
   .project_swiper {
@@ -380,20 +426,32 @@ button {
   }
   .swiper {
     max-width: 100%;
-    height: 40vh;
+    height: 35vh;
   }
 
   footer {
-    min-height: clamp(8vh, 20vh, 25vh);
+    min-height: clamp(20vh, 35vh, 45vh);
+  }
+
+  .footer_content {
+    gap: 12vw;
   }
 
   .footer_content .right_container,
   .footer_information {
-    font-size: clamp(2.5px, 2vw, 20px);
+    font-size: clamp(2.5px, 2.5vw, 30px);
+  }
+
+  .footer_content .left_container {
+    flex: 2;
+  }
+
+  .footer_content .right_container {
+    line-height: 2.5;
   }
 
   button {
-    font-size: clamp(8px, 2.25vw, 25px);
+    font-size: clamp(8px, 2.5vw, 30px);
   }
 }
 
@@ -406,7 +464,7 @@ button {
 
   .footer_content .right_container,
   .footer_information {
-    font-size: clamp(2.5px, 1.4vw, 13px);
+    font-size: clamp(4px, 1.8vw, 20px);
   }
 
   button {

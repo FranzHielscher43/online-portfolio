@@ -76,6 +76,7 @@ $project_result = $conn->query($project_sql);
     <title><?= $info ? $info['first_name'] . ' ' . $info['last_name'] : 'Mein Portfolio' ?></title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="style/index.css" rel="stylesheet">
 
 </head>
@@ -85,12 +86,15 @@ $project_result = $conn->query($project_sql);
             <div class = "nav_logo">
                 <?= $info['first_name'] ?? '' ?> <?= $info['last_name'] ?? '' ?>
             </div>
-            <div class = "nav_links">
-                <li><a href="#about">About Me</a></li>
-                <li><a href="#cv">CV</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+            <div id = "nav_links">
+                <a href="#about">About Me</a>
+                <a href="#cv">CV</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
             </div>
+            <a href = "javascript:void(0);" class = "icon" onclick = "toggle_menu()">
+                <i class = "fa fa-bars"></i>
+            </a>
         </div>
         <div class="progress_container">
             <div class="progress_bar" id="myBar"></div>
@@ -104,16 +108,11 @@ $project_result = $conn->query($project_sql);
                 <p><?= $info['about_text'] ?? '' ?></p>
             </div>
         </div>
-        <br><br>
-
         <div class = "cv" id = "cv">
             <h1>Milestones</h1>
             <div class = "cv_container">
-                <?php 
-                $i = 0;
-                while ($cv = $cv_result->fetch_assoc()):
-                ?>
-                <div class="cv_entry <?= $i % 2 == 0 ? 'left' : 'right' ?>">
+                <?php while($cv = $cv_result->fetch_assoc()): ?>
+                <div class="cv_entry">
                     <h2><?= htmlspecialchars($cv['name']) ?? ''?></h2>
                     <p>Position: <?= htmlspecialchars($cv['position']) ?? ''?></p>
                     <p>Institution: <?= htmlspecialchars($cv['company']) ?? ''?></p>
@@ -122,12 +121,8 @@ $project_result = $conn->query($project_sql);
                     <p>Until: <?= htmlspecialchars($cv['end_date']) ?? ''?></p>
                     <p>Description: <?= htmlspecialchars($cv['description']) ?? ''?></p>
                 </div>
-                <?php
-                $i++;
-                    endwhile;
-                ?>
+                <?php endwhile; ?>
             </div>
-            <br><br>
         </div>
 
         <div class="projects" id="projects">
@@ -216,6 +211,7 @@ $project_result = $conn->query($project_sql);
 </body>
 <script src = "https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script src = "script/swiper_init.js"></script>
+<script src = "script/toggle_menu.js"></script>
 <script src = "script/footer.js"></script>
 <script src = "script/progress_bar.js"></script>
 </html>
