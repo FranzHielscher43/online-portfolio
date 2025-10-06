@@ -37,12 +37,12 @@ body .navbar {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgb(44, 57, 96);
+  background-color: var(--primary-color);
   box-shadow: 5px 10px;
   width: 100%;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  color: white;
+  color: var(--navbar-color);
   font-size: clamp(12px, 2.5vw, 30px);
 }
 
@@ -63,13 +63,13 @@ body #nav_links {
 
 body #nav_links a {
   text-decoration: none;
-  color: white;
+  color: var(--navbar-color);
   font-weight: 500;
   transition: color 0.3 ease;
 }
 
 body .nav_links a:hover {
-  color: rgb(104, 192, 104);
+  color: var(--secondary-color);
 }
 
 body .nav_logo {
@@ -94,7 +94,7 @@ body .nav_logo {
 
 .progress_bar {
   height: 0.5vh;
-  background-color: rgb(104, 192, 104);
+  background-color: var(--secondary-color);
   filter: brightness(1.1);
   width: 0%;
 }
@@ -138,7 +138,7 @@ body .nav_logo {
   flex-wrap: wrap;
   gap: 1.5rem;
   padding: 1vw;
-  border: 0.5vw dotted rgb(104, 192, 104);
+  border: 0.5vw dotted var(--secondary-color);
 }
 
 .cv_entry {
@@ -171,7 +171,7 @@ body .nav_logo {
 
 .project_text a {
   text-decoration: none;
-  color: rgb(104, 192, 104);
+  color: var(--secondary-color);
 }
 
 .project_swiper {
@@ -196,13 +196,13 @@ body .nav_logo {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  background-color: rgb(255, 255, 255);
-  border: 1px solid rgb(44, 57, 96);
+  background-color: var(--navbar-color);
+  border: 1px solid var(--primary-color);
 }
 
 .swiper-button-next,
 .swiper-button-prev {
-  color: rgb(104, 192, 104);
+  color: var(--secondary-color);
 }
 
 .swiper-pagination-bullet {
@@ -210,7 +210,7 @@ body .nav_logo {
   border-radius: 0px;
 }
 .swiper-pagination-bullet-active {
-  background-color: rgb(104, 192, 104);
+  background-color: var(--secondary-color);
   width: 1vw;
   height: 1vh;
 }
@@ -220,8 +220,8 @@ footer {
   width: 100%;
   margin: 0;
   padding: 0 2vw;
-  background-color: rgb(44, 57, 96);
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--footer-color);
   min-height: clamp(15vh, 35vh, 45vh);
 
   display: flex;
@@ -255,7 +255,7 @@ footer {
 }
 
 .right_container .right_column {
-  color: rgb(45, 73, 195);
+  color: var(--contact-font-color);
   filter: brightness(2);
 }
 
@@ -272,8 +272,8 @@ button {
   padding: 0.8em 1.2em;
   max-width: 90%;
   width: fit-content;
-  background-color: rgb(104, 192, 104);
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--footer-color);
   border: none;
   cursor: pointer;
 }
@@ -343,7 +343,7 @@ button {
     display: block;
     cursor: pointer;
     font-size: 2rem;
-    color: white;
+    color: var(--navbar-color);
   }
 
   body #nav_links {
@@ -356,7 +356,7 @@ button {
     left: 0;
     top: 100%;
     width: 100%;
-    background-color: rgb(163, 175, 217);
+    background-color: var(--primary-color-light);
     box-shadow: 5px 10px;
     opacity: 0.9;
     padding: 1rem 0;
@@ -366,14 +366,13 @@ button {
     transition: color 0.3 ease;
   }
 
-  /* Jeder Link in eigener Zeile */
   #nav_links a {
     display: flex;
     text-decoration: none;
     font-weight: bold;
     text-align: center;
     justify-content: center;
-    color: rgb(44, 57, 96);
+    color: var(--primary-color);
     padding: 0.8rem 0;
     width: 90%;
     position: relative;
@@ -381,16 +380,16 @@ button {
   }
 
   body #nav_links a {
-    color: rgb(255, 255, 255); /* jetzt wirkt es */
+    color: var(--navbar-color);
   }
 
   #nav_links a:hover {
-    background-color: rgb(104, 192, 104);
+    background-color: var(--secondary-color);
     border-radius: 10px;
   }
 
   .nav_container .icon:hover {
-    color: rgb(104, 192, 104);
+    color: var(--secondary-color);
   }
 
   /* About Me */

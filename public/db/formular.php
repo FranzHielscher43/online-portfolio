@@ -9,6 +9,10 @@ require_once 'db_connection.php';
 require_once __DIR__ . '/edit/delete.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if(isset($_POST['loesche_farbe'])) {
+        deleteEntry('settings', $conn);
+    }
+
     if (isset($_POST['loesche_info'])) {
         deleteEntry('informations', $conn);
     }
@@ -36,7 +40,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <link rel="stylesheet" href="./style/formular.css">
     </head>
     <body>
+        <!-- Login / Logout -->
         <a href="/db/access/logout.php">Logout</a>
+
+        <!-- Color -->
+        <h1>Add Color:</h1>
+        <form action = "/db/edit/write_in_db_color.php" method = "POST">
+            <label>Primary Color:<input type = "text" name = "primary_color" required></label><br><br>
+            <label>Secondary Color:<input type = "text" name = "secondary_color" required></label><br><br>
+            <label>Contact Font Color:<input type = "text" name = "contact_font_color" required></label><br><br>
+            <label>Navbar Font Color:<input type = "text" name = "navbar_color" required></label><br><br>
+            <label>Footer Font Color:<input type = "text" name = "footer_color" required></label><br><br>
+
+            <button type = "submit">Save</button>
+        </form>
+
+        <h1>Saved Color</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Primary Color</th>
+                    <th>Secondary Color</th>
+                    <th>Contact Font Color</th>
+                    <th>Navbar Font Color</th>
+                    <th>Footer Font Color</th>
+                    <th>Created</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $sql = "SELECT * FROM settings ORDER BY created ASC";
+                $result = $conn->query($sql);
+
+                if ($result && $result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($row['id'] ) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['primary_color']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['secondary_color']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['contact_font_color']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['navbar_color']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['footer_color']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['created']) . "</td>";
+                        echo "<td>
+                                <form method='POST' onsubmit=\"return confirm('Diesen Eintrag wirklich löschen?');\">
+                                    <input type='hidden' name='id' value='" . $row['id'] . "'>
+                                    <button type='submit' name='loesche_farbe'>🗑️ Delete</button>
+                                </form>
+                                <form method='GET' action='/db/edit/edit_color.php'>
+                                    <input type='hidden' name='id' value='" . $row['id'] . "'>
+                                    <button type='submit'>✏️ Edit</button>
+                                </form>
+                            </td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='8'>Keine Einträge vorhanden.</td></tr>";
+                }
+
+                ?>
+            </tbody>
+        </table>
+        <br>
         <h1>Neuen Eintrag hinzufügen:</h1>
         <form action = "/db/edit/write_in_db_info.php" method = "POST">
             <label>Vorname:<input type = "text" name = "vorname" required></label><br><br>

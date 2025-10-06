@@ -54,6 +54,17 @@ $success = $_SESSION['success'] ?? '';
 $error = $_SESSION['error'] ?? '';
 unset($_SESSION['success'], $_SESSION['error']);
 
+// Einstellungen laden
+$color_sql = "SELECT primary_color, secondary_color, contact_font_color, navbar_color, footer_color FROM settings ORDER BY created ASC LIMIT 1";
+$color_result = $conn->query($color_sql);
+$color = $color_result->fetch_assoc();
+
+$primary_color = $color['primary_color'];
+$secondary_color = $color['secondary_color'];
+$contact_font_color = $color['contact_font_color'];
+$navbar_color = $color['navbar_color'];
+$footer_color = $color['footer_color'];
+
 // Persönliche Infos laden
 $info_sql = "SELECT * FROM informations ORDER BY created ASC";
 $info_result = $conn->query($info_sql);
@@ -74,6 +85,16 @@ $project_result = $conn->query($project_sql);
 <head>
     <meta charset="UTF-8">
     <title><?= $info ? $info['first_name'] . ' ' . $info['last_name'] : 'Mein Portfolio' ?></title>
+
+    <style>
+        :root {
+            --primary-color: <?= htmlspecialchars($primary_color) ?>;
+            --secondary-color: <?= htmlspecialchars($secondary_color) ?>;
+            --contact-font-color: <?= htmlspecialchars($contact_font_color) ?>;
+            --navbar-color: <?= htmlspecialchars($navbar_color) ?>;
+            --footer-color: <?= htmlspecialchars($footer_color) ?>;
+        }
+    </style>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -210,6 +231,7 @@ $project_result = $conn->query($project_sql);
     </footer>
 </body>
 <script src = "https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src = "script/rgb.js"></script>
 <script src = "script/swiper_init.js"></script>
 <script src = "script/toggle_menu.js"></script>
 <script src = "script/footer.js"></script>
