@@ -7,7 +7,6 @@ services:
       - "8080:80"
     volumes:
       - ./public:/var/www/html
-      - ./vendor:/var/www/html/vendor
     environment:
       SMTP_USER: "franzhielscher1@gmail.com"
       SMTP_PASS: "puhy fpdg kbww gvzr"

@@ -1,10 +1,20 @@
 FROM php:8.2-apache
 
-# Composer installieren
+WORKDIR /var/www/html
+
+# Composer aus dem offiziellen Composer-Image kopieren
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Aktiviert mod_rewrite (nützlich bei späteren Features)
+# Apache mod_rewrite aktivieren
 RUN a2enmod rewrite
 
-# Optional: mysqli aktivieren, falls du es brauchst
+# mysqli aktivieren
 RUN docker-php-ext-install mysqli
+
+# Composer-Abhängigkeiten installieren
+# composer.json und composer.lock müssen im Projektstamm liegen
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --optimize-autoloader
+
+# Website-Dateien kopieren
+COPY public/ ./public/
