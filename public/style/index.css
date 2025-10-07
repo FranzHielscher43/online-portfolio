@@ -332,14 +332,20 @@ button {
 /* MEDIA QUERIES           */
 /* ======================= */
 @media (max-width: 600px) {
+  .about_me {
+    position: relative;
+    top: 1%;
+  }
+
   footer {
     padding: 5vw 4vw;
   }
 
   .footer_content {
     flex-direction: column;
-    align-items: flex-start;
     justify-content: center;
+    position: relative;
+    top: 10%;
   }
 
   .footer_content .left_container,
@@ -349,12 +355,11 @@ button {
   }
 
   .footer_heading {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
   }
 
   .footer_information {
     font-size: 1rem;
-    line-height: 1.4;
   }
 
   button {
