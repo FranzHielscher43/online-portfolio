@@ -442,10 +442,10 @@ button {
     justify-content: center;
     color: var(--primary-color);
     padding: 0.8rem 0;
-    font-size: 2rem;
-    width: 100%;
+    font-size: 1.5rem;
     position: relative;
-    left: 5%;
+    left: 10%;
+    width: 80%;
   }
 
   body #nav_links a {
@@ -475,22 +475,22 @@ button {
   }
 
   .about_me img {
-    width: 60%;
+    width: 70%;
   }
 
   .cv_heading {
     position: relative;
-    left: 5%;
+    left: 10%;
   }
 
   .cv_container {
     flex-direction: column;
     position: relative;
-    margin: 5%;
+    width: 80%;
   }
 
   .cv_entry {
-    flex: 1 1 100%;
+    flex: 1 1 80%;
   }
 
   /* Projekte */
@@ -510,7 +510,7 @@ button {
     width: 100%;
   }
   .swiper {
-    max-width: 100%;
+    width: 100%;
     height: 35vh;
   }
 
