@@ -30,7 +30,7 @@ body {
 
 main {
   flex: 1;
-  padding-top: 8vh;
+  padding-top: 100px;
 }
 
 /* Navigation */
@@ -41,6 +41,7 @@ body .navbar {
   background-color: var(--primary-color);
   box-shadow: 5px 10px;
   width: 100%;
+  height: 120px;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   color: var(--navbar-color);
@@ -224,27 +225,28 @@ body .nav_logo {
 /* Footer */
 footer {
   width: 100%;
-  margin: 0;
-  padding: 2rem 4vw;
+  padding: 5vw 4vw;
   background-color: var(--primary-color);
   color: var(--footer-color);
-  min-height: clamp(15vh, 35vh, 45vh);
-
   display: flex;
-  align-items: center; /* vertikal zentrieren */
-  overflow-x: hidden;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden; /* verhindert seitliches Scrollen */
+  overflow-y: visible; /* scrollt mit der Seite, nicht innerhalb des Footers */
+  min-height: auto;
 }
 
 .footer_content {
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   justify-content: space-between;
   line-height: 1.5;
   width: 100%;
   margin: 1%;
-  gap: 2rem;
+  gap: 12rem;
 }
 
 .footer_content .left_container {
@@ -273,15 +275,17 @@ footer {
 
 .footer_heading {
   font-size: clamp(10px, 4vw, 50px);
+  margin: 0 0 0.5rem 0;
 }
 
 .footer_information {
   font-size: clamp(5px, 2vw, 25px);
+  line-height: 1.5;
 }
 
 button {
   font-size: clamp(12px, 3vw, 30px);
-  padding: 0.8em 1.2em;
+  padding: 1em;
   width: 100%;
   background-color: var(--secondary-color);
   color: var(--footer-color);
@@ -341,6 +345,13 @@ button {
 /* ======================= */
 /* MEDIA QUERIES           */
 /* ======================= */
+@media (min-width: 400px) {
+  .about_me {
+    position: relative;
+    top: 5%;
+  }
+}
+
 @media (max-width: 600px) {
   .about_me {
     position: relative;
@@ -360,6 +371,7 @@ button {
   .footer_content {
     flex-direction: column;
     justify-content: center;
+    width: 100%;
   }
 
   .footer_content .left_container,
