@@ -129,9 +129,12 @@ $project_result = $conn->query($project_sql);
                 <h1>Hello, I'm <?= $info['first_name'] ?? '' ?>...</h1>
                 <p><?= $info['about_text'] ?? '' ?></p>
             </div>
+            <br>
         </div>
         <div class = "cv" id = "cv">
-            <h1>Milestones</h1>
+            <div class = "cv_heading">
+                <h1>Milestones</h1>
+            </div>
             <div class = "cv_container">
                 <?php while($cv = $cv_result->fetch_assoc()): ?>
                 <div class="cv_entry">
