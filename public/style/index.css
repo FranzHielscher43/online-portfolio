@@ -30,7 +30,8 @@ body {
 
 main {
   flex: 1;
-  padding-top: 100px;
+  padding-top: 120px; /* Fallback für ältere Browser */
+  padding-top: calc(120px + env(safe-area-inset-top));
 }
 
 /* Navigation */
