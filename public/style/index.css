@@ -407,7 +407,7 @@ button {
     left: 0;
     width: 100%;
     background-color: var(--primary-color-light);
-    z-index: 3000;
+    z-index: 20000;
 
     display: flex;
     flex-direction: column;
