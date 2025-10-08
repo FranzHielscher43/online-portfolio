@@ -117,6 +117,9 @@ $project_result = $conn->query($project_sql);
             <a href = "javascript:void(0);" class = "icon" onclick = "toggle_menu()">
                 <i class = "fa fa-bars"></i>
             </a>
+            <script>
+                window.addEventListener("touchstart", () => {}, { passive: true });
+            </script>
         </div>
         <div class="progress_container">
             <div class="progress_bar" id="myBar"></div>
