@@ -407,7 +407,7 @@ button {
     left: 0;
     width: 100%;
     background-color: var(--primary-color-light);
-    z-index: 3000;
+    z-index: 9999;
 
     display: flex;
     flex-direction: column;
@@ -415,48 +415,46 @@ button {
     justify-content: center;
     gap: 0.8rem;
 
-    transform-origin: top;
-    transform: scaleY(0);
     opacity: 0;
     visibility: hidden;
-    transition: transform 0.35s ease, opacity 0.35s ease;
-    -webkit-transform: scaleY(0);
-    -webkit-transition: -webkit-transform 0.35s ease, opacity 0.35s ease;
+    transform: translateY(-10px); /* statt scaleY – stabiler in Safari */
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    will-change: opacity, transform;
   }
 
   /* Wenn offen */
   #nav_links.open {
-    transform: scaleY(1);
-    -webkit-transform: scaleY(1);
-    padding: 3%;
-    pointer-events: all;
+    opacity: 1;
     visibility: visible;
-    opacity: 0.9;
+    transform: translateY(0);
   }
 
   #nav_links a {
-    display: flex;
-    text-decoration: none;
-    font-weight: bold;
-    text-align: center;
-    justify-content: center;
-    color: var(--primary-color);
-    padding: 0.8rem 0;
-    font-size: 1.2rem;
-    position: relative;
+    display: block;
     width: 80%;
-    transition: opacity 0.3s ease 0.15s;
-    opacity: 0;
-  }
-
-  #nav_links.open a {
-    opacity: 1;
+    text-align: center;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.3rem;
+    padding: 0.8rem 0;
+    border-radius: 10px;
+    transition: background-color 0.2s ease;
   }
 
   #nav_links a:hover {
     color: var(--primary-color);
     background-color: var(--secondary-color);
     border-radius: 10px;
+  }
+
+  /* 🔧 Safari Repaint-Hack */
+  @supports (-webkit-touch-callout: none) {
+    #nav_links {
+      -webkit-transform: translateY(-10px);
+      -webkit-backface-visibility: hidden;
+      -webkit-perspective: 1000;
+    }
   }
 
   .nav_container .icon:hover {
