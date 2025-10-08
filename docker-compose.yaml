@@ -23,6 +23,8 @@ services:
 
       # Logging (optional)
       - "--log.level=INFO"
+
+      - "--serverstransport.insecureskipverify=true"
     ports:
       - "80:80"
       - "443:443"
