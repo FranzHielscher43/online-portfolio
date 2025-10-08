@@ -4,12 +4,24 @@ services:
   traefik:
     image: traefik:v3.1
     command:
+      # Provider (Docker-Integration)
       - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+
+      # HTTP (Port 80) → Weiterleitung auf HTTPS
       - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+
+      # HTTPS (Port 443)
       - "--entrypoints.websecure.address=:443"
+
+      # Let's Encrypt Einstellungen
       - "--certificatesresolvers.le.acme.tlschallenge=true"
       - "--certificatesresolvers.le.acme.email=franzhielscher1@gmail.com"
       - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
+
+      # Logging (optional)
       - "--log.level=INFO"
     ports:
       - "80:80"
@@ -26,9 +38,17 @@ services:
       - ./public:/var/www/html
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.web.rule=Host(`franzhielscher.studio`,`www.franzhielscher.studio`)"
+
+      # Domain-Regel (jetzt korrekt mit OR statt Komma)
+      - "traefik.http.routers.web.rule=Host(`franzhielscher.studio`) || Host(`www.franzhielscher.studio`)"
+
+      # EntryPoint & SSL-Zertifikat
       - "traefik.http.routers.web.entrypoints=websecure"
       - "traefik.http.routers.web.tls.certresolver=le"
+
+      # (Optional) HSTS + Redirects
+      - "traefik.http.routers.web.tls=true"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
     depends_on:
       - db
     environment:
