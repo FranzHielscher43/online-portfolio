@@ -414,36 +414,31 @@ button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 2%;
     gap: 1rem;
-
-    /* Animation */
     opacity: 0;
     max-height: 0;
     overflow: hidden;
     transition: opacity 0.4s ease, max-height 0.4s ease;
     -webkit-transition: opacity 0.4s ease, max-height 0.4s ease;
-
-    /* Safari-Kompatibilität */
     -webkit-transform: translateZ(0);
     will-change: opacity, max-height;
   }
 
-  /* Wenn offen */
   #nav_links.open {
-    opacity: 1;
-    max-height: 500px; /* genug Platz für alle Links */
+    opacity: 0.9;
+    max-height: 500px;
   }
 
   /* Links im Menü */
   #nav_links a {
     display: block;
-    width: 100%;
+    width: 80%;
     text-align: center;
     padding: 1rem 0;
     text-decoration: none;
     color: var(--primary-color);
-    font-weight: bold;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     background-color: transparent;
     border-radius: 10px;
     transition: background-color 0.3s ease;
