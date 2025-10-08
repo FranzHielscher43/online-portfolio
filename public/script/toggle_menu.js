@@ -1,8 +1,17 @@
 function toggle_menu() {
-  let nav = document.getElementById("nav_links");
-  if (nav.style.display === "block") {
-    nav.style.display = "none";
-  } else {
-    nav.style.display = "block";
-  }
+  const nav = document.getElementById("nav_links");
+  nav.classList.toggle("open");
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const nav = document.getElementById("nav_links");
+  const links = nav.querySelectorAll("a");
+
+  links.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth <= 900) {
+        nav.classList.remove("open");
+      }
+    });
+  });
+});
