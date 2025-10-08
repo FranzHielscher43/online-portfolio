@@ -8,23 +8,27 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
 
-      # HTTP (Port 80) → Weiterleitung auf HTTPS
+      # EntryPoints
       - "--entrypoints.web.address=:80"
       - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
       - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
-
-      # HTTPS (Port 443)
       - "--entrypoints.websecure.address=:443"
+
+      # Default (Fallback) Zertifikat — verhindert „nicht privat“-Warnung
+      - "--entrypoints.websecure.http.tls=true"
+      - "--entrypoints.websecure.http.tls.certresolver=le"
+      - "--entrypoints.websecure.http.tls.domains[0].main=franzhielscher.studio"
+      - "--entrypoints.websecure.http.tls.domains[0].sans=www.franzhielscher.studio"
+      - "--serverstransport.insecureskipverify=true"
 
       # Let's Encrypt Einstellungen
       - "--certificatesresolvers.le.acme.tlschallenge=true"
       - "--certificatesresolvers.le.acme.email=franzhielscher1@gmail.com"
       - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
 
-      # Logging (optional)
+      # Logging
       - "--log.level=INFO"
 
-      - "--serverstransport.insecureskipverify=true"
     ports:
       - "80:80"
       - "443:443"
@@ -41,16 +45,12 @@ services:
     labels:
       - "traefik.enable=true"
 
-      # Domain-Regel (jetzt korrekt mit OR statt Komma)
+      # Regel: Domain
       - "traefik.http.routers.web.rule=Host(`franzhielscher.studio`) || Host(`www.franzhielscher.studio`)"
-
-      # EntryPoint & SSL-Zertifikat
       - "traefik.http.routers.web.entrypoints=websecure"
       - "traefik.http.routers.web.tls.certresolver=le"
+      - "traefik.http.services.web.loadbalancer.server.port=80"
 
-      # (Optional) HSTS + Redirects
-      - "traefik.http.routers.web.tls=true"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
     depends_on:
       - db
     environment:
