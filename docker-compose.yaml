@@ -1,25 +1,45 @@
 version: "3.8"
 
 services:
-  web:
-    build: .
+  traefik:
+    image: traefik:v3.1
+    command:
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.le.acme.tlschallenge=true"
+      - "--certificatesresolvers.le.acme.email=franzhielscher1@gmail.com"
+      - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
+      - "--log.level=INFO"
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./letsencrypt:/letsencrypt
+    restart: unless-stopped
+
+  web:
+    build: .
+    container_name: web
     volumes:
       - ./public:/var/www/html
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`franzhielscher.studio`,`www.franzhielscher.studio`)"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.routers.web.tls.certresolver=le"
+    depends_on:
+      - db
     environment:
       SMTP_USER: "franzhielscher1@gmail.com"
       SMTP_PASS: "puhy fpdg kbww gvzr"
-    depends_on:
-      - db
 
   db:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: portfolio
-    ports:
-      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
 
@@ -27,7 +47,7 @@ services:
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
-      - 8081:80
+      - "8081:80"
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: root
