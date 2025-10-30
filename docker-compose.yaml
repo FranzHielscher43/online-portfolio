@@ -1,61 +1,18 @@
 version: "3.8"
 
 services:
-  traefik:
-    image: traefik:v3.1
-    command:
-      # Provider (Docker-Integration)
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-
-      # EntryPoints
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
-      - "--entrypoints.websecure.address=:443"
-
-      # Default (Fallback) Zertifikat — verhindert „nicht privat“-Warnung
-      - "--entrypoints.websecure.http.tls=true"
-      - "--entrypoints.websecure.http.tls.certresolver=le"
-      - "--entrypoints.websecure.http.tls.domains[0].main=franzhielscher.studio"
-      - "--entrypoints.websecure.http.tls.domains[0].sans=www.franzhielscher.studio"
-      - "--serverstransport.insecureskipverify=true"
-
-      # Let's Encrypt Einstellungen
-      - "--certificatesresolvers.le.acme.tlschallenge=true"
-      - "--certificatesresolvers.le.acme.email=franzhielscher1@gmail.com"
-      - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
-
-      # Logging
-      - "--log.level=INFO"
-
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./letsencrypt:/letsencrypt
-    restart: unless-stopped
-
   web:
     build: .
     container_name: web
     volumes:
       - ./public:/var/www/html
-    labels:
-      - "traefik.enable=true"
-
-      # Regel: Domain
-      - "traefik.http.routers.web.rule=Host(`franzhielscher.studio`) || Host(`www.franzhielscher.studio`)"
-      - "traefik.http.routers.web.entrypoints=websecure"
-      - "traefik.http.routers.web.tls.certresolver=le"
-      - "traefik.http.services.web.loadbalancer.server.port=80"
-
-    depends_on:
-      - db
+    ports:
+      - "8080:80"
     environment:
       SMTP_USER: "franzhielscher1@gmail.com"
       SMTP_PASS: "puhy fpdg kbww gvzr"
+    depends_on:
+      - db
 
   db:
     image: mysql:8.0
@@ -67,12 +24,15 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    platform: linux/amd64
     restart: always
     ports:
       - "8081:80"
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: root
+    depends_on:
+      - db
 
 volumes:
   db_data:

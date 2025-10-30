@@ -28,6 +28,18 @@ body {
   flex-direction: column;
 }
 
+/* Box Animation */
+@keyframes appear {
+  from {
+    opacity: 0;
+    scale: 0.5;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
 main {
   flex: 1;
   padding-top: calc(120px + env(safe-area-inset-top));
@@ -135,6 +147,9 @@ main {
   font-size: clamp(12px, 2.5vw, 25px);
   margin: 1vw;
   padding: 1vw;
+  animation: appear linear;
+  animation-timeline: view();
+  animation-range: entry 0 cover 30%;
 }
 
 .cv_container {
@@ -151,6 +166,9 @@ main {
   flex: 1 1 45%;
   display: flex;
   flex-direction: column;
+  animation: appear linear;
+  animation-timeline: view();
+  animation-range: entry 0 cover 30%;
 }
 
 .projects {
@@ -158,6 +176,9 @@ main {
   padding: 2%;
   width: 100%;
   overflow-x: hidden;
+  animation: appear linear;
+  animation-timeline: view();
+  animation-range: entry 0 cover 30%;
 }
 
 .project_entry {
@@ -168,6 +189,9 @@ main {
   gap: 5rem;
   display: flex;
   align-items: flex-start;
+  animation: appear linear;
+  animation-timeline: view();
+  animation-range: entry 0 cover 30%;
 }
 
 .project_text {
